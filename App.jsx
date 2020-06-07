@@ -1,18 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import Appbar from './src/components/Appbar';
+import MemoDetailScreen from './src/screens/MemoDetailScreen';
 
 const App = () => (
   <View style={styles.container}>
-    <Text>Hello</Text>
+    <Appbar />
+    <MemoDetailScreen />
   </View>
 );
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fffdf6',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 78,
   },
 });
 
