@@ -17,7 +17,7 @@ const MemoDetailScreen = () => (
     </View>
 
     <CircleButton style={styles.editButton} color="white">
-      +
+      {'\uf303'}
     </CircleButton>
   </View>
 );
