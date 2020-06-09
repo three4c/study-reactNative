@@ -7,7 +7,7 @@ import CircleButton from '../elements/CircleButton';
 const MemoListScreen = () => (
   <View style={styles.container}>
     <MemoList />
-    <CircleButton>{'\uf067'}</CircleButton>
+    <CircleButton name="plus" />
   </View>
 );
 

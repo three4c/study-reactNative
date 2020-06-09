@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
+import { createIconSet } from '@expo/vector-icons';
 import fontAwesome from '../../assets/fonts/fa-solid-900.ttf';
+
+const CustomIcon = createIconSet(
+  {
+    pencil: '\uf303',
+    plus: '\uf067',
+    check: '\uf00c',
+  },
+  'FontAwesome',
+);
 
 const CircleButton = (props) => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -16,7 +26,7 @@ const CircleButton = (props) => {
 
     fn();
   }, []);
-  const { style, color } = props;
+  const { style, color, name } = props;
 
   let bgColor = '#e31676';
   let textColor = '#fff';
@@ -29,9 +39,10 @@ const CircleButton = (props) => {
   return (
     <View style={[styles.circleButton, style, { backgroundColor: bgColor }]}>
       {fontLoaded ? (
-        <Text style={[styles.circleButtonTitle, { color: textColor }]}>
-          {props.children}
-        </Text>
+        <CustomIcon
+          name={name}
+          style={[styles.circleButtonTitle, { color: textColor }]}
+        />
       ) : null}
     </View>
   );
