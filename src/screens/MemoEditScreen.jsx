@@ -3,10 +3,10 @@ import { StyleSheet, View, TextInput } from 'react-native';
 
 import CircleButton from '../elements/CircleButton';
 
-const MemoEditScreen = () => (
+const MemoEditScreen = (props) => (
   <View style={styles.container}>
     <TextInput style={styles.memoEditInput} multiline value="Hi" />
-    <CircleButton name="check" />
+    <CircleButton name="check" onPress={() => props.navigation.goBack()} />
   </View>
 );
 

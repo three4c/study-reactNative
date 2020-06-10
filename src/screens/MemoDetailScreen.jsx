@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import CircleButton from '../elements/CircleButton';
 
-const MemoDetailScreen = () => (
+const MemoDetailScreen = (props) => (
   <View style={styles.container}>
     <View style={styles.memoHeader}>
       <View>
@@ -16,7 +16,12 @@ const MemoDetailScreen = () => (
       <Text>講座のアイデアです。</Text>
     </View>
 
-    <CircleButton name="pencil" style={styles.editButton} color="white" />
+    <CircleButton
+      name="pencil"
+      style={styles.editButton}
+      color="white"
+      onPress={() => props.navigation.navigate('MemoEdit')}
+    />
   </View>
 );
 

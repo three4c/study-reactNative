@@ -4,10 +4,13 @@ import { StyleSheet, View } from 'react-native';
 import MemoList from '../components/MemoList';
 import CircleButton from '../elements/CircleButton';
 
-const MemoListScreen = () => (
+const MemoListScreen = (props) => (
   <View style={styles.container}>
-    <MemoList />
-    <CircleButton name="plus" />
+    <MemoList navigation={props.navigation} />
+    <CircleButton
+      name="plus"
+      onPress={() => props.navigation.navigate('MemoEdit')}
+    />
   </View>
 );
 
