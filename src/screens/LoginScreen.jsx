@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import firebase from 'firebase';
 import {
   StyleSheet,
   View,
@@ -10,6 +11,18 @@ import {
 const LoginScreen = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleSubmit = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        props.navigation.navigate('Home');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -33,7 +46,7 @@ const LoginScreen = (props) => {
       />
       <TouchableHighlight
         style={styles.button}
-        onPress={() => props.navigation.navigate('Home')}
+        onPress={handleSubmit}
         underlayColor="#c70f66"
       >
         <Text style={styles.buttonTitle}>ログインする</Text>
