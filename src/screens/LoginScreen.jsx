@@ -16,8 +16,9 @@ const LoginScreen = (props) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((user) => {
         props.navigation.navigate('Home');
+        console.log('success', user);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
