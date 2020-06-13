@@ -9,15 +9,15 @@ import {
 } from 'react-native';
 
 const LoginScreen = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('user1@sample.com');
+  const [password, setPassword] = useState('user1user1');
 
   const handleSubmit = () => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        props.navigation.navigate('Home', { currentUser: user });
+        props.navigation.navigate('Home');
         // eslint-disable-next-line no-console
         console.log('success', user);
       })

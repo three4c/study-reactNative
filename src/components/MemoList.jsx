@@ -1,16 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableHighlight,
+  FlatList,
+} from 'react-native';
 
-const MemoList = (props) => (
-  <View style={styles.memoList}>
-    <TouchableHighlight onPress={() => props.navigation.navigate('MemoDetail')}>
+const MemoList = (props) => {
+  const renderMemo = ({ item, id }) => (
+    <TouchableHighlight
+      key={id}
+      onPress={() => props.navigation.navigate('MemoDetail', { memo: item })}
+    >
       <View style={styles.memoListItem}>
-        <Text style={styles.memoTitle}>講座のアイテム</Text>
+        <Text style={styles.memoTitle}>{item.body}</Text>
         <Text style={styles.memoDate}>2020/06/07</Text>
       </View>
     </TouchableHighlight>
-  </View>
-);
+  );
+
+  return (
+    <View style={styles.memoList}>
+      <FlatList data={props.memoList} renderItem={renderMemo} />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   memoList: {

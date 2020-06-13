@@ -8,9 +8,9 @@ const MemoCreateScreen = (props) => {
   const [bodyText, setBodyText] = useState('');
 
   const handlePress = () => {
-    const { params } = props.navigation.state;
     const db = firebase.firestore();
-    db.collection(`users/${params.currentUser.user.uid}/memos`)
+    const { currentUser } = firebase.auth();
+    db.collection(`users/${currentUser.uid}/memos`)
       .add({
         body: bodyText,
         createdOn: new Date(),

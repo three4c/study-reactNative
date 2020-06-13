@@ -1,29 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 import CircleButton from '../elements/CircleButton';
 
-const MemoDetailScreen = (props) => (
-  <View style={styles.container}>
-    <View style={styles.memoHeader}>
-      <View>
-        <Text style={styles.memoHeaderTitle}>講座のアイデア</Text>
-        <Text style={styles.memoHeaderDate}>2020/06/07</Text>
+const MemoDetailScreen = (props) => {
+  const [memo, setMemo] = useState({});
+
+  useEffect(() => {
+    const { params } = props.navigation.state;
+    setMemo(params.memo);
+  }, []);
+
+  console.log(memo.createdOn);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.memoHeader}>
+        <View>
+          <Text style={styles.memoHeaderTitle}>{memo.body}</Text>
+          <Text style={styles.memoHeaderDate}>{String(memo.createdOn)}</Text>
+        </View>
       </View>
-    </View>
 
-    <View style={styles.memoContent}>
-      <Text>講座のアイデアです。</Text>
-    </View>
+      <View style={styles.memoContent}>
+        <Text>講座のアイデアです。</Text>
+      </View>
 
-    <CircleButton
-      name="pencil"
-      style={styles.editButton}
-      color="white"
-      onPress={() => props.navigation.navigate('MemoEdit')}
-    />
-  </View>
-);
+      <CircleButton
+        name="pencil"
+        style={styles.editButton}
+        color="white"
+        onPress={() => props.navigation.navigate('MemoEdit')}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

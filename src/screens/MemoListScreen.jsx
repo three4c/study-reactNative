@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-
+import firebase from 'firebase';
 import MemoList from '../components/MemoList';
 import CircleButton from '../elements/CircleButton';
 
@@ -8,15 +8,28 @@ import CircleButton from '../elements/CircleButton';
 
 const MemoListScreen = (props) => {
   const handlePress = () => {
-    const { params } = props.navigation.state;
-    props.navigation.navigate('MemoCreate', {
-      currentUser: params.currentUser,
-    });
+    props.navigation.navigate('MemoCreate');
   };
+
+  const [memoList, setMemoList] = useState([]);
+
+  useEffect(() => {
+    const { currentUser } = firebase.auth();
+    const db = firebase.firestore();
+    db.collection(`users/${currentUser.uid}/memos`)
+      .get()
+      .then((snapshot) => {
+        const memoListArray = [];
+        snapshot.forEach((doc) => {
+          memoListArray.push({ ...doc.data(), key: doc.id });
+        });
+        setMemoList(memoListArray);
+      });
+  }, []);
 
   return (
     <View style={styles.container}>
-      <MemoList navigation={props.navigation} />
+      <MemoList memoList={memoList} navigation={props.navigation} />
       <CircleButton name="plus" onPress={handlePress} />
     </View>
   );
