@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import firebase from 'firebase';
 
 import MemoList from '../components/MemoList';
 import CircleButton from '../elements/CircleButton';
@@ -9,20 +8,10 @@ import CircleButton from '../elements/CircleButton';
 
 const MemoListScreen = (props) => {
   const handlePress = () => {
-    const db = firebase.firestore();
-    db.collection('memos')
-      .add({
-        body: 'test memo',
-        createdOn: '2017-12-12',
-      })
-      .then((docRef) => {
-        // eslint-disable-next-line no-console
-        console.log(docRef.id);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      });
+    const { params } = props.navigation.state;
+    props.navigation.navigate('MemoCreate', {
+      currentUser: params.currentUser,
+    });
   };
 
   return (

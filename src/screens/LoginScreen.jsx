@@ -17,7 +17,8 @@ const LoginScreen = (props) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        props.navigation.navigate('Home');
+        props.navigation.navigate('Home', { currentUser: user });
+        // eslint-disable-next-line no-console
         console.log('success', user);
       })
       .catch((error) => {
