@@ -16,15 +16,13 @@ const MemoListScreen = (props) => {
   useEffect(() => {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
-    db.collection(`users/${currentUser.uid}/memos`)
-      .get()
-      .then((snapshot) => {
-        const memoListArray = [];
-        snapshot.forEach((doc) => {
-          memoListArray.push({ ...doc.data(), key: doc.id });
-        });
-        setMemoList(memoListArray);
+    db.collection(`users/${currentUser.uid}/memos`).onSnapshot((snapshot) => {
+      const memoListArray = [];
+      snapshot.forEach((doc) => {
+        memoListArray.push({ ...doc.data(), key: doc.id });
       });
+      setMemoList(memoListArray);
+    });
   }, []);
 
   return (

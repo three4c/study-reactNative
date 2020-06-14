@@ -4,33 +4,44 @@ import { StyleSheet, View, Text } from 'react-native';
 import CircleButton from '../elements/CircleButton';
 
 const MemoDetailScreen = (props) => {
-  const [memo, setMemo] = useState({});
+  const [memo, setMemo] = useState({ body: '', key: '', createdOn: '' });
 
   useEffect(() => {
     const { params } = props.navigation.state;
     setMemo(params.memo);
   }, []);
 
-  console.log(memo.createdOn);
+  const dateString = (date) => {
+    if (!date) {
+      return '';
+    }
+
+    const dateObject = date.toDate();
+    return dateObject.toISOString().split('T')[0];
+  };
+
+  const returnMemo = (memoArray) => {
+    setMemo(memoArray);
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.memoHeader}>
         <View>
-          <Text style={styles.memoHeaderTitle}>{memo.body}</Text>
-          <Text style={styles.memoHeaderDate}>{String(memo.createdOn)}</Text>
+          <Text style={styles.memoHeaderTitle}>{memo.body ? `${memo.body.substring(0, 10)}` : ''}</Text>
+          <Text style={styles.memoHeaderDate}>{dateString(memo.createdOn)}</Text>
         </View>
       </View>
 
       <View style={styles.memoContent}>
-        <Text>講座のアイデアです。</Text>
+        <Text style={styles.momoBody}>{memo.body}</Text>
       </View>
 
       <CircleButton
         name="pencil"
         style={styles.editButton}
         color="white"
-        onPress={() => props.navigation.navigate('MemoEdit')}
+        onPress={() => props.navigation.navigate('MemoEdit', { memo, returnMemo })}
       />
     </View>
   );
@@ -64,6 +75,10 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     backgroundColor: '#fff',
     flex: 1,
+  },
+  memoBody: {
+    fontSize: 15,
+    lineHeight: 20,
   },
   editButton: {
     top: 75,

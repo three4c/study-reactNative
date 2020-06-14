@@ -1,21 +1,21 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableHighlight,
-  FlatList,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, FlatList } from 'react-native';
+
+const dateString = (date) => {
+  if (!date) {
+    return '';
+  }
+
+  const dateObject = date.toDate();
+  return dateObject.toISOString().split('T')[0];
+};
 
 const MemoList = (props) => {
   const renderMemo = ({ item, id }) => (
-    <TouchableHighlight
-      key={id}
-      onPress={() => props.navigation.navigate('MemoDetail', { memo: item })}
-    >
+    <TouchableHighlight key={id} onPress={() => props.navigation.navigate('MemoDetail', { memo: item })}>
       <View style={styles.memoListItem}>
         <Text style={styles.memoTitle}>{item.body}</Text>
-        <Text style={styles.memoDate}>2020/06/07</Text>
+        <Text style={styles.memoDate}>{dateString(item.createdOn)}</Text>
       </View>
     </TouchableHighlight>
   );
