@@ -20,7 +20,6 @@ const MemoEditScreen = (props) => {
         body: memo.body,
         createdOn: newDate,
       })
-      // eslint-disable-next-line no-console
       .then(() => {
         const { navigation } = props;
         navigation.state.params.returnMemo({
@@ -29,8 +28,7 @@ const MemoEditScreen = (props) => {
           createdOn: newDate,
         });
       })
-      // eslint-disable-next-line no-console
-      .catch((error) => console.log(error));
+      .catch(() => {});
     props.navigation.goBack();
   };
 

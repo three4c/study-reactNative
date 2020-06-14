@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import firebase from 'firebase';
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableHighlight,
-  Text,
-} from 'react-native';
+import { StyleSheet, View, TextInput, TouchableHighlight, Text, TouchableOpacity } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState('user1@sample.com');
@@ -16,15 +11,18 @@ const LoginScreen = (props) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then((user) => {
-        props.navigation.navigate('Home');
-        // eslint-disable-next-line no-console
-        console.log('success', user);
+      .then(() => {
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: 'Home' })],
+        });
+        props.navigation.dispatch(resetAction);
       })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      });
+      .catch(() => {});
+  };
+
+  const handlePress = () => {
+    props.navigation.navigate('Signup');
   };
 
   return (
@@ -47,13 +45,13 @@ const LoginScreen = (props) => {
         placeholder="Password"
         secureTextEntry
       />
-      <TouchableHighlight
-        style={styles.button}
-        onPress={handleSubmit}
-        underlayColor="#c70f66"
-      >
+      <TouchableHighlight style={styles.button} onPress={handleSubmit} underlayColor="#c70f66">
         <Text style={styles.buttonTitle}>ログインする</Text>
       </TouchableHighlight>
+
+      <TouchableOpacity onPress={handlePress} style={styles.signup}>
+        <Text style={styles.signupText}>メンバー登録する</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -90,6 +88,13 @@ const styles = StyleSheet.create({
   buttonTitle: {
     color: '#fff',
     fontSize: 18,
+  },
+  signup: {
+    marginTop: 16,
+    alignSelf: 'center',
+  },
+  signupText: {
+    fontSize: 16,
   },
 });
 

@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import firebase from 'firebase';
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableHighlight,
-  Text,
-} from 'react-native';
+import { StyleSheet, View, TextInput, TouchableHighlight, Text } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 const SignupScreen = (props) => {
   const [email, setEmail] = useState('');
@@ -17,12 +12,13 @@ const SignupScreen = (props) => {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        props.navigation.navigate('Home');
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: 'Home' })],
+        });
+        props.navigation.dispatch(resetAction);
       })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      });
+      .catch(() => {});
   };
 
   return (
@@ -45,11 +41,7 @@ const SignupScreen = (props) => {
         placeholder="Password"
         secureTextEntry
       />
-      <TouchableHighlight
-        style={styles.button}
-        onPress={handleSubmit}
-        underlayColor="#c70f66"
-      >
+      <TouchableHighlight style={styles.button} onPress={handleSubmit} underlayColor="#c70f66">
         <Text style={styles.buttonTitle}>送信する</Text>
       </TouchableHighlight>
     </View>

@@ -4,8 +4,6 @@ import firebase from 'firebase';
 import MemoList from '../components/MemoList';
 import CircleButton from '../elements/CircleButton';
 
-// rops.navigation.navigate('MemoEdit')
-
 const MemoListScreen = (props) => {
   const handlePress = () => {
     props.navigation.navigate('MemoCreate');

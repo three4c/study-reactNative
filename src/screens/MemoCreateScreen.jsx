@@ -15,15 +15,10 @@ const MemoCreateScreen = (props) => {
         body: bodyText,
         createdOn: new Date(),
       })
-      .then((docRef) => {
-        // eslint-disable-next-line no-console
-        console.log(docRef.id);
+      .then(() => {
+        props.navigation.goBack();
       })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      });
-    props.navigation.goBack();
+      .catch(() => {});
   };
   return (
     <View style={styles.container}>
