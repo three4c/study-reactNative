@@ -31,6 +31,7 @@ const SignupScreen = (props) => {
         autoCapitalize="none"
         autoCorrect={false}
         placeholder="Email Address"
+        underlineColorAndroid="transparent"
       />
       <TextInput
         style={styles.input}
@@ -40,6 +41,7 @@ const SignupScreen = (props) => {
         autoCorrect={false}
         placeholder="Password"
         secureTextEntry
+        underlineColorAndroid="transparent"
       />
       <TouchableHighlight style={styles.button} onPress={handleSubmit} underlayColor="#c70f66">
         <Text style={styles.buttonTitle}>送信する</Text>

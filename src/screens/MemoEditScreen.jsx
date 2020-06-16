@@ -39,6 +39,8 @@ const MemoEditScreen = (props) => {
         multiline
         value={memo.body}
         onChangeText={(text) => setMemo({ body: text, key: memo.key })}
+        underlineColorAndroid="transparent"
+        textAlignVertical="top"
       />
       <CircleButton name="check" onPress={handlePress} />
     </View>

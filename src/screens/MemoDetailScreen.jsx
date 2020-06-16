@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   editButton: {
-    top: 75,
+    top: 68,
   },
 });
 
